@@ -40,4 +40,4 @@ Todoist is an app used for managing todos.
 ## Links
 
 - [Github link](https://github.com/00017965/todoist)
-- [Live demo](localhost:3000)
+- [Live demo](https://todoist-05rx.onrender.com/)
