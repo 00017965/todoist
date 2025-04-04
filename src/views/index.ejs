@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Todo</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4">
+    <div class="container">
+      <a class="navbar-brand" href="/">Todoist</a>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="row mb-4">
+      <div class="col-md-6 mx-auto">
+        <form action="/" method="POST" class="d-flex">
+          <input type="text" class="form-control me-2" id="title" name="title" placeholder="Enter todo" required>
+          <button type="submit" class="btn btn-primary">Add</button>
+        </form>
+      </div>
+    </div>
+
+    <% if (todos && todos.length) { %>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header">
+              <h5 class="mb-0">Todos</h5>
+            </div>
+            <div class="card-body">
+              <div class="list-group">
+                <% todos.forEach(todo => { %>
+                  <div class="list-group-item todo-item d-flex justify-content-between align-items-center">
+                    <div>
+                      <h5 class="mb-1 <%= todo.completed ? 'completed' : '' %>"><%= todo.title %></h5>
+                      <small class="text-muted">Created: <%= new Date(todo.createdAt).toLocaleString() %></small>
+                    </div>
+                    <div class="btn-group gap-2">
+                      <a href="/edit/<%= todo._id %>" class="btn btn-sm btn-outline-primary">
+                        <i class="fas fa-edit"></i> Edit
+                      </a>
+                      <form action="/update/<%= todo._id %>" method="POST" class="d-inline">
+                        <input type="hidden" name="completed" value="<%= !todo.completed %>">
+                        <button type="submit" class="btn btn-sm <%= todo.completed ? 'btn-outline-warning' : 'btn-outline-success' %>">
+                          <i class="fas <%= todo.completed ? 'fa-undo' : 'fa-check' %>"></i>
+                          <%= todo.completed ? 'Undo' : 'Complete' %>
+                        </button>
+                      </form>
+                      <form action="/delete/<%= todo._id %>" method="POST" class="d-inline">
+                        <button type="submit" class="btn btn-sm btn-outline-danger">
+                          <i class="fas fa-trash"></i> Delete
+                        </button>
+                      </form>
+                    </div>
+                  </div>
+                <% }); %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% } else { %>
+      <div class="">No todos yet. Add one above!</div>
+    <% } %>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html> 

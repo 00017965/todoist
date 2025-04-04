@@ -1,0 +1,10 @@
+.completed {
+  text-decoration: line-through;
+  color: #6c757d;
+}
+.todo-item {
+  transition: all 0.3s ease;
+}
+.todo-item:hover {
+  background-color: #f8f9fa;
+}
